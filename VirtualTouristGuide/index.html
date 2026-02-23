@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Tourist Guide - Manali</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+    .hero {
+     background: url("images/homepage1.jpg") center/cover;
+     height: 70vh;
+     color: white;
+     text-align: center;
+     padding-top: 180px;
+     animation: fadeIn 1.5s;
+    }
+    </style>
+</head>
+<body>
+
+
+    <!-- TOP NAV BAR -->
+<div class="top-nav">
+    <div class="logo">🌄 Virtual Tourist Guide</div>
+
+   <div class="auth-buttons">
+
+    <a href="profile.html" id="profileBtn" 
+       class="btn login-btn" style="display:none;">
+       View Profile
+    </a>
+
+    <!-- NEW Logout Button -->
+    <a href="LogoutServlet" id="logoutBtn" 
+       class="btn register-btn" style="display:none;">
+       Logout
+    </a>
+
+    <a href="login.html" id="loginBtn" class="btn login-btn">Login</a>
+    <a href="register.html" id="registerBtn" class="btn register-btn">Register</a>
+
+</div>
+
+</div>
+
+<header class="hero">
+<h1 class="title">Explore Manali</h1>
+<p class="subtitle">
+Your smart virtual tourist guide to explore famous attractions,
+valleys, temples, mountain passes, and cultural landmarks around Manali.
+</p>
+</header> 
+
+<!-- SEARCH BAR START -->
+<form action="PlaceServlet" method="get"
+      style="text-align:center; margin:30px 0;">
+    
+    <input type="text"
+           name="search"
+           placeholder="Search places in Manali..."
+           style="padding:12px; width:280px; font-size:16px;"
+           required>
+
+    <button type="submit"
+            style="padding:8.9px 20px; padding-bottom: 11px; font-size:16px; cursor:pointer;">
+        🔍 Search
+    </button>
+</form>
+
+
+<section class="grid">
+
+    <div class="card">
+        <img src="images/solang.jpg">
+        <h3>Solang Valley</h3>
+        <span class="rating-badge" id="rate-Solang Valley">⭐ --</span>
+        <p>Popular for skiing, paragliding, ropeway rides, and adventure sports.</p>
+        <a href="PlaceServlet?name=Solang Valley">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/rohtang.jpg">
+        <h3>Rohtang Pass</h3>
+        <span class="rating-badge" id="rate-Rohtang Pass">⭐ --</span>
+        <p>Snow-covered mountain pass offering stunning views and glaciers.</p>
+        <a href="PlaceServlet?name=Rohtang Pass">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/hadimba.png">
+        <h3>Hadimba Temple</h3>
+        <span class="rating-badge" id="rate-Hadimba Temple">⭐ --</span>
+        <p>Ancient wooden temple surrounded by cedar forests and calm nature.</p>
+        <a href="PlaceServlet?name=Hadimba Temple">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/oldmanali.jpg">
+        <h3>Old Manali</h3>
+        <span class="rating-badge" id="rate-Old Manali">⭐ --</span>
+        <p>Traditional village known for cafes, culture, and river and mountain views.</p>
+        <a href="PlaceServlet?name=Old Manali">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/vashisht.jpg">
+        <h3>Vashisht Hot Springs</h3>
+        <span class="rating-badge" id="rate-Vashisht Hot Springs">⭐ --</span>
+        <p>Natural hot water springs believed to have healing properties.</p>
+        <a href="PlaceServlet?name=Vashisht Hot Springs ">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/naggar.jpg">
+        <h3>Naggar Castle</h3>
+        <span class="rating-badge" id="rate-Naggar Castle">⭐ --</span>
+        <p>Historic castle showing traditional Himachali architecture.</p>
+        <a href="PlaceServlet?name=Naggar Castle">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/mallroad.jpg">
+        <h3>Mall Road</h3>
+        <span class="rating-badge" id="rate-Mall Road">⭐ --</span>
+        <p>Main shopping street with local food, cafes, cold weather and souvenirs.</p>
+        <a href="PlaceServlet?name=Mall Road">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/manutemple.jpg">
+        <h3>Manu Temple</h3>
+        <span class="rating-badge" id="rate-Manu Temple">⭐ --</span>
+        <p>Ancient temple dedicated to sage Manu and sunset point located near Old Manali.</p>
+        <a href="PlaceServlet?name=Manu Temple">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/joginifalls.jpg">
+        <h3>Jogini Waterfall</h3>
+        <span class="rating-badge" id="rate-Jogini Waterfall">⭐ --</span>
+        <p>Beautiful joginifall waterfall reached by a scenic trek near Vashisht .</p>
+        <a href="PlaceServlet?name=Jogini Waterfall">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/beasriver.jpg">
+        <h3>Beas River</h3>
+        <span class="rating-badge" id="rate-Beas River">⭐ --</span>
+        <p>River flowing through Manali, popular for water rafting, photography.</p>
+        <a href="PlaceServlet?name=Beas River">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/great_himalayan_national_park.jpg">
+        <h3>Great Himalayan National Park</h3>
+        <span class="rating-badge" id="rate-Great Himalayan National Park">⭐ --</span>
+        <p>Protected area known for wildlife, and trekking routes.</p>
+        <a href="PlaceServlet?name=Great Himalayan National Park">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/ataltunnel.jpg">
+        <h3>Atal Tunnel</h3>
+        <span class="rating-badge" id="rate-Atal Tunnel">⭐ --</span>
+        <p>World’s longest highway tunnel above 10k feet(3,000+ meters) at high altitude near Manali.</p>
+        <a href="PlaceServlet?name=Atal Tunnel">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/sethanvillage.jpg">
+        <h3>Sethan Village</h3>
+        <span class="rating-badge" id="rate-Sethan Village">⭐ --</span>
+        <p>Peaceful village near Manali, famous for snow activities like igloo stays, snowboarding.</p>
+        <a href="PlaceServlet?name=Sethan Village">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/gulaba.jpg">
+        <h3>Gulaba</h3>
+        <span class="rating-badge" id="rate-Gulaba">⭐ --</span>
+        <p>Scenic spot on the way to Rohtang Pass with snow views, winter activites line skiing.</p>
+        <a href="PlaceServlet?name=Gulaba">Explore</a>
+    </div>
+
+    <div class="card">
+        <img src="images/marhi.jpg">
+        <h3>Marhi</h3>
+        <span class="rating-badge" id="rate-Marhi">⭐ --</span>
+        <p>breathtaking mountain views, sprawling snow fields, and as a key stopover for refreshments.</p>
+        <a href="PlaceServlet?name=Marhi">Explore</a>
+    </div>
+
+</section>
+
+
+<!-- Chatbot Floating Button -->
+<div id="chatbot-btn" onclick="toggleChat()">
+    🤖
+</div>
+
+<!-- Chatbot Window -->
+<div id="chatbot-box">
+    <div class="chat-header">
+        <span>Myra – Travel Assistant</span>
+        <button onclick="toggleChat()">✖</button>
+    </div>
+
+    <div id="chat-body">
+        <div class="bot-msg">Hi 👋 I’m Myra. Ask me about places or hotels.</div>
+        <div id="typing" class="typing-indicator" style="display:none;">
+       
+    </div>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="userMsg" placeholder="Ask me anything..." />
+        <button onclick="sendMsg()">➤</button>
+    </div>
+
+ 
+</div>
+<!-- ===== FOOTER ===== -->
+<footer class="main-footer">
+
+    <div class="footer-container">
+
+        <div class="footer-section">
+            <h3>🌄 Virtual Tourist Guide</h3>
+            <p>Explore the beauty of Manali with smart recommendations, travel tips and interactive maps.</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <p>Email: support@virtualguide.com</p>
+            <p>Location: Manali, Himachal Pradesh</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Virtual Tourist Guide | Designed by You 💙
+    </div>
+
+</footer>
+
+<script>
+const places = [
+ "Manali",
+ "Solang Valley",
+ "Rohtang Pass",
+ "Hadimba Temple",
+ "Old Manali",
+ "Vashisht Hot Springs",
+ "Naggar Castle",
+ "Mall Road",
+ "Manu Temple",
+ "Jogini Waterfall",
+ "Beas River",
+ "Great Himalayan National Park",
+ "Atal Tunnel",
+ "Sethan Village",
+ "Gulaba",
+ "Marhi"
+];
+
+places.forEach(place => {
+    fetch("PlaceServlet?avg=true&name=" + encodeURIComponent(place))
+        .then(res => res.text())
+        .then(avg => {
+            const badge = document.getElementById("rate-" + place);
+            if (!badge) return;
+
+            if (avg === "No ratings") {
+                badge.innerHTML = "⭐ No ratings";
+            } else {
+                badge.innerHTML = "⭐ " + avg + " / 5";
+
+                //  Highlight top-rated places
+                if (parseFloat(avg) >= 4.5) {
+                    badge.classList.add("top-rated");
+                    badge.innerHTML += " 🔥 Top Rated";
+                }
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        });
+});
+
+
+function toggleChat() {
+const box = document.getElementById("chatbot-box");
+box.style.display = box.style.display === "flex" ? "none" : "flex";
+}
+
+
+function sendMsg() {
+    const input = document.getElementById("userMsg");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    // Add user message
+    addMsg(msg, "user-msg");
+    input.value = "";
+
+    // Create typing bubble dynamically
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "typing-indicator bot-msg";
+    typingDiv.innerHTML = `
+        <span></span>
+        <span></span>
+        <span></span>
+    `;
+
+    document.getElementById("chat-body").appendChild(typingDiv);
+    scrollChat();
+
+    // Call backend
+    fetch("ChatbotServlet?msg=" + encodeURIComponent(msg))
+        .then(res => res.text())
+        .then(reply => {
+            setTimeout(() => {
+                //  Remove typing dots
+                typingDiv.remove();
+
+                // Add bot reply in SAME position
+                addMsg(reply, "bot-msg");
+            }, 800);
+        });
+}
+
+function addMsg(text, cls) {
+    const div = document.createElement("div");
+    div.className = cls;
+    div.innerText = text;
+    document.getElementById("chat-body").appendChild(div);
+    scrollChat();
+}
+
+function scrollChat() {
+    const chatBody = document.getElementById("chat-body");
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+// nav login and register js
+
+document.querySelectorAll(".btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        btn.style.transform = "scale(0.95)";
+        setTimeout(() => btn.style.transform = "", 150);
+    });
+});
+
+
+fetch("SessionCheckServlet")
+    .then(res => {
+        if (res.status === 200) {
+
+            // Show profile + logout
+            document.getElementById("profileBtn").style.display = "inline-block";
+            document.getElementById("logoutBtn").style.display = "inline-block";
+
+            // Hide login + register
+            document.getElementById("loginBtn").style.display = "none";
+            document.getElementById("registerBtn").style.display = "none";
+
+        }
+    });
+
+
+// Footer fade-in when visible
+window.addEventListener("scroll", function () {
+    const footer = document.querySelector(".main-footer");
+    const footerPosition = footer.getBoundingClientRect().top;
+    const screenPosition = window.innerHeight;
+
+    if (footerPosition < screenPosition - 100) {
+        footer.classList.add("show-footer");
+    }
+});
+
+
+</script>
+
+ 
+
+
+</body>
+</html>     

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <div class="auth-box slide-in">
+        <h2>Create Account ✨</h2>
+
+        <form action="RegisterServlet" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+</div>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>🌄 Virtual Tourist Guide</h3>
+            <p>Explore the beauty of Manali with smart recommendations and interactive maps.</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <p>Email: support@virtualguide.com</p>
+            <p>Location: Manali, Himachal Pradesh</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Virtual Tourist Guide | Designed by You 💙
+    </div>
+</footer>
+
+<script src="auth.js"></script>
+
+<script>
+window.addEventListener("load", function() {
+    const footer = document.querySelector(".main-footer");
+    if (footer) {
+        footer.classList.add("show-footer");
+    }
+});
+</script>
+
+</body>
+
+
+
+</body>
+</html>

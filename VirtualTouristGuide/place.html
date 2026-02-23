@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Place Details</title>
+    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+
+
+<style>
+     
+.hero {
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+</style>
+
+</head>
+<body>
+
+<header class="hero">
+    <h1 id="placeName" class="main-title"></h1>
+    <p id="direction" class="main-para"></p>
+</header>
+
+<section class="place-container">
+
+    <!-- Place Image -->
+    <div class="place-image">
+        <img id="placeImg" s alt="Place Image">
+    </div>
+
+    <!-- Place Details Card -->
+    <div class="place-card">
+
+        <h3>About this place</h3>
+        <p id="placeDesc">
+            This destination is one of the most popular tourist attractions in Manali.
+        </p>
+
+        <!-- Navigation Controls -->
+          <div style="margin-top:20px;">
+          <button onclick="setMode('driving')" class="route-btn">🚗 Car</button>
+          <button onclick="setMode('foot')" class="route-btn">🚶 Walk</button>
+          <button onclick="showHotels()" class="route-btn">🏨 Hotels</button>
+          <button onclick="showRestaurants()" class="route-btn">🍴 Restaurants</button>
+    </div>
+
+<!-- Map -->
+<div id="map" style="height: 400px; margin-top:15px; border-radius:10px;"></div>
+
+        <!-- Rating -->
+        <section class="rating-box">
+            <h3>Rate this place</h3>
+
+            <form method="post" action="PlaceServlet">
+                <input type="hidden" name="place" id="placeInput">
+
+                <select name="rating" required>
+                    <option value="">-- Select --</option>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+
+                <button type="submit">Submit Rating</button>
+            </form>
+        </section>
+
+    </div>
+</section>
+
+
+<!-- ===== FOOTER ===== -->
+<footer class="main-footer">
+
+    <div class="footer-container">
+
+        <div class="footer-section">
+            <h3>🌄 Virtual Tourist Guide</h3>
+            <p>Explore the beauty of Manali with smart recommendations, travel tips and interactive maps.</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <p>Email: support@virtualguide.com</p>
+            <p>Location: Manali, Himachal Pradesh</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Virtual Tourist Guide | Designed by You 💙
+    </div>
+
+
+
+</footer>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const place = params.get("name");
+
+const images = {
+    "Solang Valley": "images/solang.jpg",
+    "Rohtang Pass": "images/rohtang.jpg",
+    "Hadimba Temple": "images/hadimba.png",
+    "Old Manali": "images/oldmanali.jpg",
+    "Vashisht Hot Springs": "images/vashisht.jpg",
+    "Naggar Castle": "images/naggar.jpg",
+    "Mall Road": "images/mallroad.jpg",
+    "Manu Temple": "images/manutemple.jpg",
+    "Jogini Waterfall": "images/joginifalls.jpg",
+    "Beas River": "images/beasriver.jpg",
+    "Great Himalayan National Park": "images/great_himalayan_national_park.jpg",
+    "Atal Tunnel": "images/ataltunnel.jpg",
+    "Sethan Village": "images/sethanvillage.jpg",
+    "Gulaba": "images/gulaba.jpg",
+    "Marhi": "images/marhi.jpg"
+};
+
+document.getElementById("placeImg").src =
+    images[place] ? images[place] : "images/default.jpg";
+
+document.getElementById("placeName").innerText = place;
+document.getElementById("placeInput").value = place;
+document.getElementById("direction").innerText =
+    "Explore navigation and nearby places for " + place;
+
+const map = L.map('map').setView([32.2432, 77.1892], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+let destinationLat, destinationLng;
+let userLat, userLng;
+let routingControl;
+let currentMode = "driving";
+let movingMarker;
+let poiLayer = L.layerGroup().addTo(map);
+
+/* Get Destination */
+
+fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place + " Manali")}`)
+    .then(res => res.json())
+    .then(data => {
+        if (data.length > 0) {
+            destinationLat = parseFloat(data[0].lat);
+            destinationLng = parseFloat(data[0].lon);
+
+            map.setView([destinationLat, destinationLng], 14);
+
+            L.marker([destinationLat, destinationLng])
+                .addTo(map)
+                .bindPopup(place)
+                .openPopup();
+        }
+    });
+
+/* Get User Location */
+
+function loadUserLocation() {
+
+    if (!navigator.geolocation) {
+        alert("Geolocation not supported.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        function (pos) {
+
+            userLat = pos.coords.latitude;
+            userLng = pos.coords.longitude;
+
+            map.setView([userLat, userLng], 15);
+
+            L.marker([userLat, userLng])
+                .addTo(map)
+                .bindPopup("📍 You are here")
+                .openPopup();
+
+        },
+        function (error) {
+
+            console.log("Location error:", error);
+
+            // Fallback to Manali center
+            userLat = 32.2432;
+            userLng = 77.1892;
+
+            map.setView([userLat, userLng], 13);
+
+            L.marker([userLat, userLng])
+                .addTo(map)
+                .bindPopup("📍 Default location (Manali)")
+                .openPopup();
+
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,   // increase timeout
+            maximumAge: 0
+        }
+    );
+}
+
+
+
+/* Mode Switch */
+
+function setMode(mode) {
+    currentMode = mode;
+    openRoute();
+}
+
+/* Routing */
+
+function openRoute() {
+
+    if (!destinationLat || !destinationLng) {
+        alert("Destination not ready yet.");
+        return;
+    }
+
+    if (!navigator.geolocation) {
+        alert("Geolocation not supported.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        function (pos) {
+
+            userLat = pos.coords.latitude;
+            userLng = pos.coords.longitude;
+
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(userLat, userLng),
+                    L.latLng(destinationLat, destinationLng)
+                ],
+                router: L.Routing.osrmv1({
+                    serviceUrl: 'https://router.project-osrm.org/route/v1',
+                    profile: currentMode
+                }),
+                show: true,
+                addWaypoints: false,
+                routeWhileDragging: false
+            }).addTo(map);
+
+        },
+        function () {
+            alert("Please allow location access.");
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
+    );
+}
+
+
+
+    routingControl.on('routesfound', function(e) {
+        const route = e.routes[0];
+        animateMarker(route.coordinates);
+    });
+
+/* Animated Marker */
+
+function animateMarker(coords) {
+
+    if (movingMarker) {
+        map.removeLayer(movingMarker);
+    }
+
+    let i = 0;
+
+    movingMarker = L.marker(coords[0]).addTo(map);
+
+    function move() {
+        if (i < coords.length) {
+            movingMarker.setLatLng(coords[i]);
+            i++;
+            setTimeout(move, 50);
+        }
+    }
+
+    move();
+}
+
+/* Nearby Hotels */
+
+function showHotels() {
+    showPOI("hotel");
+}
+
+/* Nearby Restaurants */
+
+function showRestaurants() {
+    showPOI("restaurant");
+}
+
+/* POI Loader */
+function showPOI(type) {
+
+    if (!destinationLat || !destinationLng) {
+        alert("Destination not loaded yet. Please wait.");
+        return;
+    }
+
+    poiLayer.clearLayers();
+
+    let query;
+
+    if (type === "hotel") {
+        query = `
+            [out:json];
+            (
+              node(around:2000,${destinationLat},${destinationLng})["tourism"="hotel"];
+              node(around:2000,${destinationLat},${destinationLng})["amenity"="hotel"];
+              node(around:2000,${destinationLat},${destinationLng})["tourism"="guest_house"];
+            );
+            out;
+        `;
+    } else if (type === "restaurant") {
+        query = `
+            [out:json];
+            node(around:2000,${destinationLat},${destinationLng})["amenity"="restaurant"];
+            out;
+        `;
+    }
+
+    fetch("https://overpass-api.de/api/interpreter", {
+        method: "POST",
+        body: query
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if (!data.elements || data.elements.length === 0) {
+            alert("No nearby " + type + " found.");
+            return;
+        }
+
+        data.elements.forEach(el => {
+            L.marker([el.lat, el.lon])
+                .bindPopup(el.tags.name || type)
+                .addTo(poiLayer);
+        });
+
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Overpass server busy. Try again in 5 seconds.");
+    });
+}
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>        
+

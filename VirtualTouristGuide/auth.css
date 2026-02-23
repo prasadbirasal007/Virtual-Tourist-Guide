@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+   
+    font-family: Arial, sans-serif;
+}
+.page-wrapper {
+    flex: 1;              /* Push footer down */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* Auth Card */
+.auth-box {
+    background: #fff;
+    padding: 30px;            
+    width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: slide 0.6s ease;
+}
+
+.auth-box h2 {
+    margin-bottom: 20px;
+    color: #1e3c72;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.auth-box button {
+    width: 100%;
+    height: 38px;
+    margin-top: 10px;
+    background: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-box button:hover {
+    background: #1e3c72;
+    transform: translateY(-2px);
+}
+
+.auth-box a {
+    color: #1e3c72;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Animation */
+@keyframes slide {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+
+
+.error-msg {
+    color: red;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.4s ease;
+}
+
+.error-msg.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.main-footer {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    margin-top: 60px;
+    padding-top: 40px;
+    font-family: 'Verdana', Arial, sans-serif;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.3s ease;
+}
+
+.main-footer.show-footer {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 0 40px 30px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: 15px;
+}
+
+
+.footer-section p {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section a {
+    color: #ffcc00;
+    text-decoration: none;
+    transition: 0.3s ease;
+
+}
+
+.footer-section a:hover {
+    color: white;
+    padding-left: 6px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+}
